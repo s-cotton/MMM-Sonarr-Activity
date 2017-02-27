@@ -1,0 +1,23 @@
+{
+  "name": "MMM-Sonarr-Activity",
+  "main": "MMM-Sonarr-Activity.js",
+  "authors": [
+    "s-cotton <cot.s.ton@gmail.com>"
+  ],
+  "description": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "backbonejs#^1.3.3",
+    "handlebars": "^4.0.5",
+    "jquery-cycle": "^3.0.3"
+  }
+}

@@ -20,7 +20,7 @@ Module.register("MMM-Sonarr-Activity", {
         displayType: "list",
         perPage: 15,
         scrollTimeout: 10000,
-        scrollEffect: 'fade',
+        scrollEffect: 'scrollHorz',
 
         updateInterval: 5 * 60 * 1000,
 

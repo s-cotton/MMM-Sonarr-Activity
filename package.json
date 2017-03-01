@@ -1,0 +1,30 @@
+{
+  "name": "MMM-Sonarr-Activity",
+  "version": "0.0.1",
+  "description": "MagicMirror module for displaying Sonarr Activity",
+  "main": "MMM-Sonarr-Activity.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/s-cotton/MMM-Sonarr-Activity"
+  },
+  "keywords": [
+    "MagicMirror", "Sonarr"
+  ],
+  "author": "Stephen Cotton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/s-cotton/MMM-Sonarr-Activity/issues"
+  },
+  "homepage": "https://github.com/s-cotton/MMM-Sonarr-Activity",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-handlebars": "^1.0.0",
+    "grunt-contrib-less": "^1.4.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "load-grunt-tasks": "^3.5.2"
+  }
+}

@@ -42,8 +42,20 @@ Module.register("MMM-Sonarr-Activity", {
     updatesCollection: null,
     mainView: null,
 
-    getHeader: function(){
-        return this.data.header;
+    updater: null,
+    lastUpdate: 0,
+
+    suspend: function(){
+        this.stopUpdateTimer();
+        if( this.mainView !== null ){
+            this.mainView.trigger("stopSlider");
+        }
+    },
+    resume: function(){
+        this.startUpdateTimer();
+        if( this.mainView !== null ){
+            this.mainView.trigger("startSlider");
+        }
     },
 
     // Subclass start method.
@@ -58,10 +70,22 @@ Module.register("MMM-Sonarr-Activity", {
 
         self.getLatestActivity();
 
+        this.startUpdateTimer();
+
+    },
+
+    startUpdateTimer: function(){
+        var self = this;
+        if( moment().valueOf() - this.lastUpdate > this.config.updateInterval ){
+            this.getLatestActivity();
+        }
         this.updater = setInterval(function(){
             self.getLatestActivity();
         }, this.config.updateInterval );
+    },
 
+    stopUpdateTimer: function(){
+        clearInterval(this.updater);
     },
 
     setupModels: function(){
@@ -117,8 +141,14 @@ Module.register("MMM-Sonarr-Activity", {
                         model: update
                     }));
                 });
+                this.on("startSlider", this.startSlider, this);
+                this.on("stopSlider", this.stopSlider, this);
             },
             render: function(){
+                this.$el.on('error','img',function(e){
+                    console.error(e);
+                    $(e.target).attr('src', self.file("images/no-image.png"));
+                });
                 var that = this;
                 this.$el.empty()
                 _(this.updateViews).each(function(updateView){
@@ -131,6 +161,12 @@ Module.register("MMM-Sonarr-Activity", {
                     slides: "> div"
                 });
                 return this;
+            },
+            startSlider: function(){
+                this.$el.cycle('resume');
+            },
+            stopSlider: function(){
+                this.$el.cycle('pause');
             }
         });
     },
@@ -179,6 +215,7 @@ Module.register("MMM-Sonarr-Activity", {
         activityRequest.onreadystatechange = function() {
             if (this.readyState === 4) {
                 if (this.status === 200) {
+                    self.lastUpdate = moment().valueOf();
                     self.processActivity(JSON.parse(this.response));
                 } 
             }
